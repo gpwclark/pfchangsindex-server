@@ -1,4 +1,4 @@
-(ns clojure-game-geek.core)
+(ns pfchangsindex-server.core)
 
 (defn foo
   "I don't do a whole lot."

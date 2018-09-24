@@ -1,8 +1,8 @@
-(ns clojure-game-geek.system
+(ns pfchangsindex-server.system
 (:require
   [com.stuartsierra.component :as component]
-  [clojure-game-geek.schema :as schema]
-  [clojure-game-geek.server :as server]))
+  [pfchangsindex-server.schema :as schema]
+  [pfchangsindex-server.server :as server]))
 
 (defn new-system
   []

@@ -2,7 +2,7 @@
   (:require
     [com.walmartlabs.lacinia :as lacinia]
     [clojure.java.browse :refer [browse-url]]
-    [clojure-game-geek.system :as system]
+    [pfchangsindex-server.system :as system]
     [clojure.walk :as walk]
     [com.stuartsierra.component :as component])
   (:import (clojure.lang IPersistentMap)))

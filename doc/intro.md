@@ -1,3 +1,3 @@
-# Introduction to clojure-game-geek
+# Introduction to pfchangsindex-server
 
 TODO: write [great documentation](http://jacobian.org/writing/what-to-write/)

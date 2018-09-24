@@ -1,6 +1,6 @@
-(ns clojure-game-geek.core-test
+(ns pfchangsindex-server.core-test
   (:require [clojure.test :refer :all]
-            [clojure-game-geek.core :refer :all]))
+            [pfchangsindex-server.core :refer :all]))
 
 (deftest a-test
   (testing "FIXME, I fail."

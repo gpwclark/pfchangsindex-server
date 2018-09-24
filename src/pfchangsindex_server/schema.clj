@@ -1,4 +1,4 @@
-(ns clojure-game-geek.schema
+(ns pfchangsindex-server.schema
   "Contains custom resolvers and a function to provide the full schema."
   (:require
     [clojure.java.io :as io]
