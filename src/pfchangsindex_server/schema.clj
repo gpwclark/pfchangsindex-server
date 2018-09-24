@@ -44,7 +44,7 @@
         designers-map (entity-map cgg-data :designers)]
     {:query/game-by-id (partial resolve-game-by-id games-map)
      :query/list-games (partial resolve-list-games games-map)
-     :BoardGame/designers (partial resolve-board-game-designers designers-map)
+     :PfChangs/designers (partial resolve-board-game-designers designers-map)
      :Designer/games (partial resolve-designer-games games-map)}))
 
 (defn load-schema
