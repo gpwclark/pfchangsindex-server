@@ -7,25 +7,25 @@
     [com.stuartsierra.component :as component]
     [clojure.edn :as edn]))
 
-(defn resolve-game-by-id
-  [games-map context args value]
+(defn resolve-pfchang-by-id
+  [pfchangs-map context args value]
   (let [{:keys [id]} args]
-    (get games-map id)))
+    (get pfchangs-map id)))
 
-(defn resolve-list-games
-  [games-map context args value]
-  (vals games-map))
+(defn resolve-list-pfchangs
+  [pfchangs-map context args value]
+  (vals pfchangs-map))
 
-(defn resolve-board-game-designers
-  [designers-map context args board-game]
-  (->> board-game
+(defn resolve-board-pfchang-designers
+  [designers-map context args board-pfchang]
+  (->> board-pfchang
        :designers
        (map designers-map)))
 
-(defn resolve-designer-games
-  [games-map context args designer]
+(defn resolve-designer-pfchangs
+  [pfchangs-map context args designer]
   (let [{:keys [id]} designer]
-    (->> games-map
+    (->> pfchangs-map
          vals
          (filter #(-> % :designers (contains? id))))))
 
@@ -40,12 +40,12 @@
   (let [cgg-data (-> (io/resource "cgg-data.edn")
                      slurp
                      edn/read-string)
-        games-map (entity-map cgg-data :games)
+        pfchangs-map (entity-map cgg-data :pfchangs)
         designers-map (entity-map cgg-data :designers)]
-    {:query/game-by-id (partial resolve-game-by-id games-map)
-     :query/list-games (partial resolve-list-games games-map)
-     :PfChangs/designers (partial resolve-board-game-designers designers-map)
-     :Designer/games (partial resolve-designer-games games-map)}))
+    {:query/pfchang-by-id (partial resolve-pfchang-by-id pfchangs-map)
+     :query/list-pfchangs (partial resolve-list-pfchangs pfchangs-map)
+     :PfChangs/designers (partial resolve-board-pfchang-designers designers-map)
+     :Designer/pfchangs (partial resolve-designer-pfchangs pfchangs-map)}))
 
 (defn load-schema
   [component]

@@ -1,41 +1,41 @@
 {:objects
  {:PfChangs
-  {:description "A physical or virtual board game."
+  {:description "A physical or virtual board pfchang."
    :fields
    {:id {:type (non-null ID)}
     :name {:type (non-null String)}
     :summary {:type String
-              :description "A one-line summary of the game."}
+              :description "A one-line summary of the pfchang."}
     :description {:type String
-                  :description "A long-form description of the game."}
+                  :description "A long-form description of the pfchang."}
     :designers {:type (non-null (list :Designer))
-                :description "Designers who contributed to the game."
+                :description "Designers who contributed to the pfchang."
                 :resolve :PfChangs/designers}
     :min_players {:type Int
-                  :description "The minimum number of players the game supports."}
+                  :description "The minimum number of players the pfchang supports."}
     :max_players {:type Int
-                  :description "The maximum number of players the game supports."}
+                  :description "The maximum number of players the pfchang supports."}
     :play_time {:type Int
-                :description "Play time, in minutes, for a typical game."}}}
+                :description "Play time, in minutes, for a typical pfchang."}}}
 
   :Designer
-  {:description "A person who may have contributed to a board game design."
+  {:description "A person who may have contributed to a board pfchang design."
    :fields
    {:id {:type (non-null ID)}
     :name {:type (non-null String)}
     :url {:type String
           :description "Home page URL, if known."}
-    :games {:type (non-null (list :PfChangs))
-            :description "Games designed by this designer."
-            :resolve :Designer/games}}}}
+    :pfchangs {:type (non-null (list :PfChangs))
+            :description "pfchangs designed by this designer."
+            :resolve :Designer/pfchangs}}}}
 
 :queries
- {:game_by_id
+ {:pfchang_by_id
   {:type :PfChangs
    :description "Access a PfChangs by its unique id, if it exists."
    :args
    {:id {:type ID}}
-   :resolve :query/game-by-id}
- :games
+   :resolve :query/pfchang-by-id}
+ :pfchangs
   {:type (non-null (list :PfChangs))
-   :resolve :query/list-games}}}
+   :resolve :query/list-pfchangs}}}
