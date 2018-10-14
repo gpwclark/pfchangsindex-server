@@ -50,12 +50,12 @@
  {:restaurant_by_id
   {:type :Restaurant
    :description "Access a restaurant by its unique id, if it exists."
-   :args
-   {:id {:type ID}}
+   :args {:id {:type ID}}
    :resolve :query/restaurant_by_id}
   :region_by_id
   {:type :Region
    :description "Access a Region by its unique id, if it exists."
+   :args {:id {:type ID}}
    :resolve :query/region_by_id}
  :restaurant
   {:type (non-null (list :Restaurant))
