@@ -7,27 +7,36 @@
     [com.stuartsierra.component :as component]
     [clojure.edn :as edn]))
 
-(defn resolve-pfchang-by-id
-  [pfchangs-map context args value]
+(defn resolve-region-by-id
+  [region-map context args value]
   (let [{:keys [id]} args]
-    (get pfchangs-map id)))
+    (get region-map id)))
 
-(defn resolve-list-pfchangs
-  [pfchangs-map context args value]
-  (vals pfchangs-map))
+(defn resolve-restaurant-by-id
+  [restaurant-map context args value]
+  (let [{:keys [id]} args]
+    (get restaurant-map id)))
 
-(defn resolve-board-pfchang-designers
-  [designers-map context args board-pfchang]
-  (->> board-pfchang
-       :designers
-       (map designers-map)))
+(defn resolve-list-regions
+  [region-map context args value]
+  (vals region-map))
 
-(defn resolve-designer-pfchangs
-  [pfchangs-map context args designer]
-  (let [{:keys [id]} designer]
-    (->> pfchangs-map
+(defn resolve-list-restaurants
+  [restaurant-map context args value]
+  (vals restaurant-map))
+
+(defn resolve-region-restaurants
+  [region-map context args restaurant]
+  (->> restaurant
+       :regions
+       (map region-map)))
+
+(defn resolve-restaurant-regions
+  [restaurant-map context args region]
+  (let [{:keys [id]} region]
+    (->> restaurant-map
          vals
-         (filter #(-> % :designers (contains? id))))))
+         (filter #(-> % :regions (contains? id))))))
 
 (defn entity-map
   [data k]
@@ -40,12 +49,19 @@
   (let [cgg-data (-> (io/resource "all-pfcs-region-data.edn");; "cgg-data.edn")
                      slurp
                      edn/read-string)
-        pfchangs-map (entity-map cgg-data :restaurants)
-        designers-map (entity-map cgg-data :regions)]
-    {:query/pfchang-by-id (partial resolve-pfchang-by-id pfchangs-map)
-     :query/list-pfchangs (partial resolve-list-pfchangs pfchangs-map)
-     :Restaurant/regions (partial resolve-board-pfchang-designers designers-map)
-     :Region/restaurants (partial resolve-designer-pfchangs pfchangs-map)}))
+        restaurant-map (entity-map (first cgg-data) :restaurants)
+        region-map (entity-map (first cgg-data) :regions)]
+    {:query/region_by_id (partial resolve-region-by-id region-map)
+     :query/restaurant_by_id (partial resolve-restaurant-by-id restaurant-map)
+     :query/list_regions (partial resolve-list-regions region-map)
+     :query/list_restaurants (partial resolve-list-restaurants restaurant-map)
+     :Restaurant/regions (partial resolve-region-restaurants region-map)
+     :Region/restaurants (partial resolve-restaurant-regions restaurant-map)}))
+
+(comment (let [cgg-data (-> (io/resource "all-pfcs-region-data.edn");; "cgg-data.edn")
+                    slurp
+                    edn/read-string)]
+   (entity-map (first cgg-data) :regions)))
 
 (defn load-schema
   [component]

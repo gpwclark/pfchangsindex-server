@@ -24,14 +24,15 @@
   :Restaurant
   {:description "Table of all of the restaurants, linked to region by regions field."
    :fields
-   {:place_id {:type (non-null ID)}
+   {:place_id {:type (non-null String)}
+    :id {:type (non-null ID)}
     :name {:type (non-null String)}
-    :geometry {:type :Geometry :description "A one-line summary of the pfchang."}
+    :geometry {:type :Geometry :description "Very specific geographic data."}
     :rating {:type Int :description "Google places rating."}
-    :photos {:type (list :Photo) :description "A long-form description of the pfchang."}
+    :photos {:type (list :Photo) :description "List of photos."}
     :price_level {:type Int :description "Price level of establishment."}
     :is_pf_changs {:type Boolean :description "Whether or not this is a P.F Chang's."}
-    :regions {:type (non-null (list :Region))
+    :regions {:type (list :Region)
                 :description "Region based on existence of pf changs in area."
                 :resolve :Restaurant/regions}}}
   :Region
@@ -46,12 +47,21 @@
                  :description "restaurants in this region."
                  :resolve :Region/restaurants}}}}
 :queries
- {:pfchang_by_id
+ {:restaurant_by_id
   {:type :Restaurant
-   :description "Access a PfChangs by its unique id, if it exists."
+   :description "Access a restaurant by its unique id, if it exists."
    :args
    {:id {:type ID}}
-   :resolve :query/pfchang-by-id}
+   :resolve :query/restaurant_by_id}
+  :region_by_id
+  {:type :Region
+   :description "Access a Region by its unique id, if it exists."
+   :resolve :query/region_by_id}
  :restaurant
   {:type (non-null (list :Restaurant))
-   :resolve :query/list-pfchangs}}}
+   :description "List all of the restaurants."
+   :resolve :query/list_restaurants}
+ :region
+ {:type (non-null (list :Region))
+   :description "List all of the regions for which the pf changs index exists."
+ :resolve :query/list_regions}}}
