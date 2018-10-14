@@ -1,0 +1,57 @@
+{:objects
+ {:LatLng
+  {:description "Lat lng pair."
+   :fields
+   {:lat {:type String}
+    :lng {:type String}}}
+  :Viewport
+  {:description "More specific geometry."
+   :fields
+   {:northeast {:type :LatLng}
+    :southwest {:type :LatLng}}}
+  :Geometry
+  {:description "Very specific geographic data."
+   :fields
+   {:location {:type :LatLng}
+    :viewport {:type :Viewport}}}
+  :Photo
+  {:description "Photo link and metadata."
+   :fields
+   {:height {:type Int}
+    :html_attributions {:type String}
+    :photo_reference {:type String}
+    :width {:type Int}}}
+  :Restaurant
+  {:description "Table of all of the restaurants, linked to region by regions field."
+   :fields
+   {:place_id {:type (non-null ID)}
+    :name {:type (non-null String)}
+    :geometry {:type :Geometry :description "A one-line summary of the pfchang."}
+    :rating {:type Int :description "Google places rating."}
+    :photos {:type (list :Photo) :description "A long-form description of the pfchang."}
+    :price_level {:type Int :description "Price level of establishment."}
+    :is_pf_changs {:type Boolean :description "Whether or not this is a P.F Chang's."}
+    :regions {:type (non-null (list :Region))
+                :description "Region based on existence of pf changs in area."
+                :resolve :Restaurant/regions}}}
+  :Region
+  {:description "An area for a given pf changs index."
+   :fields
+   {:id {:type (non-null ID)}
+    :pfchangs_index {:type Int
+                     :description "PF changs index for the given region."}
+   :pfchangs_place_id {:type String
+          :description "The id of the pf changs that is the center of the region."}
+   :restaurants {:type (non-null (list :Restaurant))
+                 :description "restaurants in this region."
+                 :resolve :Region/restaurants}}}}
+:queries
+ {:pfchang_by_id
+  {:type :Restaurant
+   :description "Access a PfChangs by its unique id, if it exists."
+   :args
+   {:id {:type ID}}
+   :resolve :query/pfchang-by-id}
+ :restaurant
+  {:type (non-null (list :Restaurant))
+   :resolve :query/list-pfchangs}}}

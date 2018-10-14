@@ -1,8 +1,8 @@
 {:objects
  {:PfChangs
-  {:description "A physical or virtual board pfchang."
+  {:description "A pfchang."
    :fields
-   {:id {:type (non-null ID)}
+   {:place_id {:type (non-null ID)}
     :name {:type (non-null String)}
     :summary {:type String
               :description "A one-line summary of the pfchang."}

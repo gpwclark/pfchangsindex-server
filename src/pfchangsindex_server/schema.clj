@@ -37,19 +37,19 @@
 
 (defn resolver-map
   [component]
-  (let [cgg-data (-> (io/resource "cgg-data.edn")
+  (let [cgg-data (-> (io/resource "all-pfcs-region-data.edn");; "cgg-data.edn")
                      slurp
                      edn/read-string)
-        pfchangs-map (entity-map cgg-data :pfchangs)
-        designers-map (entity-map cgg-data :designers)]
+        pfchangs-map (entity-map cgg-data :restaurants)
+        designers-map (entity-map cgg-data :regions)]
     {:query/pfchang-by-id (partial resolve-pfchang-by-id pfchangs-map)
      :query/list-pfchangs (partial resolve-list-pfchangs pfchangs-map)
-     :PfChangs/designers (partial resolve-board-pfchang-designers designers-map)
-     :Designer/pfchangs (partial resolve-designer-pfchangs pfchangs-map)}))
+     :Restaurant/regions (partial resolve-board-pfchang-designers designers-map)
+     :Region/restaurants (partial resolve-designer-pfchangs pfchangs-map)}))
 
 (defn load-schema
   [component]
-  (-> (io/resource "cgg-schema.edn")
+  (-> (io/resource "all-pfcs-region-schema.edn") ;;"cgg-schema.edn")
       slurp
       edn/read-string
       (util/attach-resolvers (resolver-map component))
