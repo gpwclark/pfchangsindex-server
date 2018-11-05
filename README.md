@@ -3,6 +3,10 @@
 A Clojure library designed to serve graphql requests. It is currently in test
 but serves as an endpoint to use for frontend development.
 
+## lacinia bible
+
+https://media.readthedocs.org/pdf/lacinia/latest/lacinia.pdf
+
 ## Usage
 
 Currently still serving data from the lacinia-pedestal tutorial but will

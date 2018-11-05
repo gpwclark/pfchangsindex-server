@@ -26,7 +26,7 @@
    :fields
    {:place_id {:type (non-null String)}
     :id {:type (non-null ID)}
-    :name {:type (non-null String)}
+    :name {:type (non-null String ) :description "imprecise human mechansim for non uniquely identifying a place."}
     :geometry {:type :Geometry :description "Very specific geographic data."}
     :rating {:type Int :description "Google places rating."}
     :photos {:type (list :Photo) :description "List of photos."}
@@ -57,11 +57,11 @@
    :description "Access a Region by its unique id, if it exists."
    :args {:id {:type ID}}
    :resolve :query/region_by_id}
- :restaurant
+ :restaurants_list
   {:type (non-null (list :Restaurant))
    :description "List all of the restaurants."
-   :resolve :query/list_restaurants}
- :region
+   :resolve :query/restaurants_list}
+ :regions_list
  {:type (non-null (list :Region))
    :description "List all of the regions for which the pf changs index exists."
- :resolve :query/list_regions}}}
+ :resolve :query/regions_list}}}

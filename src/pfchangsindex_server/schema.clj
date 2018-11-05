@@ -53,8 +53,8 @@
         region-map (entity-map (first cgg-data) :regions)]
     {:query/region_by_id (partial resolve-region-by-id region-map)
      :query/restaurant_by_id (partial resolve-restaurant-by-id restaurant-map)
-     :query/list_regions (partial resolve-list-regions region-map)
-     :query/list_restaurants (partial resolve-list-restaurants restaurant-map)
+     :query/regions_list (partial resolve-list-regions region-map)
+     :query/restaurants_list (partial resolve-list-restaurants restaurant-map)
      :Restaurant/regions (partial resolve-region-restaurants region-map)
      :Region/restaurants (partial resolve-restaurant-regions restaurant-map)}))
 
